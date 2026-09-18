@@ -1,0 +1,4 @@
+# Force LF line endings for files meant to run on Linux. CRLF would break
+# the shebang in startwm.sh (bad interpreter error) and is wrong for any
+# file destined to be copied onto a Linux system.
+config/** text eol=lf
