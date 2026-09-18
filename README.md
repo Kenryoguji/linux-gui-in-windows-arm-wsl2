@@ -30,6 +30,30 @@ XFCE and xrdp were installed, with the default screen locker removed for incompa
 - The default XFCE startup wrapper refusing to run because it detected an X server already active — expected under xrdp, but not handled by the wrapper.
 - Silent failure caused by a missing session communication bus after simplifying the startup script.
 
+## Usage
+
+WSL2 does not start on an incoming RDP connection by itself — it only wakes up for specific triggers, such as opening a WSL terminal or running `wsl`. Starting the desktop is therefore a short, ordered sequence:
+
+1. Start the WSL2 instance: open a terminal and run `wsl` (or launch the distro from the Start menu). This boots the instance and, with it, systemd and xrdp.
+2. From a separate Windows prompt — `mstsc` doesn't exist inside the Linux shell, so this can't be the same window as step 1 — open Remote Desktop Connection: run `mstsc`, or find it in the Start menu.
+3. Enter `localhost:3390` as the address and connect.
+4. Accept the self-signed certificate warning (expected for a local xrdp connection).
+5. On the xrdp login screen, select the **Xorg** session and enter the Linux username and password.
+
+Passing the address as an argument (`mstsc /v:localhost:3390`) is possible but has proven unreliable from PowerShell; running `mstsc` bare and entering the address in the dialog (step 3) is the more consistent path.
+
 ## Repository contents
 
-Currently this README only. Configuration files and scripts referenced above will be added to the repository and listed here as they're included.
+```
+config/
+├── wsl.conf           /etc/wsl.conf — enables systemd
+└── xrdp/
+    ├── startwm.sh      /etc/xrdp/startwm.sh — session startup script
+    └── xrdp.ini        /etc/xrdp/xrdp.ini — RDP port (excerpt)
+assets/
+└── images/
+    ├── remote-office.png   Remote Desktop Connection dialog
+    └── xfce-desktop.png    The resulting XFCE desktop, over RDP
+```
+
+![XFCE desktop running over RDP](assets/images/xfce-desktop.png)
