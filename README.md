@@ -44,16 +44,8 @@ Passing the address as an argument (`mstsc /v:localhost:3390`) is possible but h
 
 ## Repository contents
 
-```
-config/
-├── wsl.conf           /etc/wsl.conf — enables systemd
-└── xrdp/
-    ├── startwm.sh      /etc/xrdp/startwm.sh — session startup script
-    └── xrdp.ini        /etc/xrdp/xrdp.ini — RDP port (excerpt)
-assets/
-└── images/
-    ├── remote-office.png   Remote Desktop Connection dialog
-    └── xfce-desktop.png    The resulting XFCE desktop, over RDP
-```
-
-![XFCE desktop running over RDP](assets/images/xfce-desktop.png)
+- `config/wsl.conf` — the modified `/etc/wsl.conf`, enabling systemd.
+- `config/xrdp/startwm.sh` — the modified session startup script, run by xrdp-sesman on each connection.
+- `config/xrdp/xrdp.ini` — excerpt of `/etc/xrdp/xrdp.ini`, showing the changed RDP port.
+- `assets/images/remote-office.png` — the Remote Desktop Connection dialog.
+- `assets/images/xfce-desktop.png` — the resulting XFCE desktop, over RDP.
