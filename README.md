@@ -35,12 +35,12 @@ XFCE and xrdp were installed, with the default screen locker removed for incompa
 WSL2 does not start on an incoming RDP connection by itself — it only wakes up for specific triggers, such as opening a WSL terminal or running `wsl`. Starting the desktop is therefore a short, ordered sequence:
 
 1. Start the WSL2 instance: open a terminal and run `wsl` (or launch the distro from the Start menu). This boots the instance and, with it, systemd and xrdp.
-2. From a separate Windows prompt — `mstsc` doesn't exist inside the Linux shell, so this can't be the same window as step 1 — open Remote Desktop Connection: run `mstsc`, or find it in the Start menu.
+2. From a separate Windows prompt — `mstsc` doesn't exist inside the Linux shell, so this can't be the same window as step 1 — open Remote Desktop Connection: run `mstsc.exe` (short for Microsoft Terminal Services Client, the original name of the RDP protocol; also the underlying binary for the "Remote Desktop Connection" app in the Start menu).
 3. Enter `localhost:3390` as the address and connect.
 4. Accept the self-signed certificate warning (expected for a local xrdp connection).
 5. On the xrdp login screen, select the **Xorg** session and enter the Linux username and password.
 
-Passing the address as an argument (`mstsc /v:localhost:3390`) is possible but has proven unreliable from PowerShell; running `mstsc` bare and entering the address in the dialog (step 3) is the more consistent path.
+Passing the address as an argument (`mstsc /v:localhost:3390`) also works in principle, but caused PowerShell to hang waiting for more input in one session here, cause unconfirmed; running `mstsc` bare and entering the address in the dialog (step 3) avoided the issue.
 
 ## Repository contents
 
